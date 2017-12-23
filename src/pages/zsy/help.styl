@@ -1,0 +1,32 @@
+@import "~common/stylus/variable"
+@import "~common/stylus/mixin"
+.help
+  .content
+    width 100%
+    background-color $color-text-white
+    margin-top $font-size-small-s
+    .item
+      padding-left $font-size-medium-15
+      .item-title
+        height 50px
+        position relative
+        color $color-text
+        font-size $font-size-medium-15
+        font-weight 600
+        line-height 50px
+        border1pxBottom($color-background-line)
+        .iconRightArrow
+          position absolute
+          right $font-size-medium-15
+          width 15px
+          height 26px
+          top 18px
+          bg-image('icon_arrow')
+          background-size 60%
+          background-repeat no-repeat
+      .item-content
+        padding-top 5px
+        font-size $font-size-medium-13
+        line-height 30px
+        span
+          border-bottom 1px solid #adadad

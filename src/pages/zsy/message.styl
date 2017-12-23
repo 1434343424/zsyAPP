@@ -1,0 +1,51 @@
+@import "~common/stylus/variable"
+@import "~common/stylus/mixin"
+.message
+  page()
+ .content
+   margin-top 54px
+   .item
+      position relative
+      height 77px
+      background-color white
+      border1pxBottom2(rgb(230,230,230))
+      &:last-child
+        border1pxBottom2Last(rgb(230,230,230))
+      &.changeColor
+        color rgb(170,170,170) // ---
+     .item-img
+        display block
+        height 36px
+        width 36px
+        background-size 100%
+        background-repeat no-repeat
+        margin-left 15px
+        position absolute
+        top 50%
+        transform translateY(-50%)
+        &.img1
+          bg-image('icon_message_n')
+        &.img2
+          bg-image('icon_message_p') // ---
+     .item-bigDiv
+        position absolute
+        height 36px
+        width 100%
+        padding-left 59px
+        top 50%
+        transform translateY(-50%)
+       .item-title
+         vertical-align top
+         font-size 15px
+         .item-time
+           position absolute
+           right 69px
+           font-size 12px
+       .item-message
+         font-size 12px
+         position absolute
+         bottom 0
+
+
+
+

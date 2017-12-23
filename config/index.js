@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8089,
+    port: 8090,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -33,7 +33,9 @@ module.exports = {
           // target:'http://192.168.18.218:8061',// 张胜
           // target: 'http://192.168.18.220:8061',// 修庆
           // target: 'http://192.168.18.177:8030', // 子涵
-          target:'http://121.199.33.100:8030',// 线上
+          // target:'http://121.199.33.100:8030',// 线上
+          // target:'http://192.168.20.12:8080',// 石智颖本地
+          target: 'http://pay.zsbigdata.com.cn:8001/zcash',
           changeOrigin: true,
           pathRewrite: {
               '^/zsy': ''

@@ -4,3 +4,23 @@ let root = '/zsy'
 export const visit = (params) => {
   return http.fetchPost(root + '/m/filter/cheCredit/visit.json', params)
 }
+// 意见反馈
+export const option = (params) => {
+  return http.fetchPost(root + '/m/opinion/add.json', params)
+}
+// 系统消息
+export const message = (params) => {
+  return http.fetchPost(root + '/m/message/queryMessageList.json', params)
+}
+// 登录接口
+export const login = (params) => {
+  return http.fetchPost(root + '/m/user/login.json ', params)
+}
+// 系统消息详情
+export const messageDetails = (params) => {
+  return http.fetchPost(root + '/m/message/queryMessageInfoById.json', params)
+}
+// 主扫接口
+export const createPayOrder = (params) => {
+  return http.fetchPost(root + '/m/pay/createPayOrder.json', params)
+}

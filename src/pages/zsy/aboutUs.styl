@@ -1,0 +1,39 @@
+@import "~common/stylus/variable"
+@import "~common/stylus/mixin"
+.about
+  .main
+    height 200px
+    width 100%
+    background-color $color-text-white
+    margin-top $font-size-small-s
+    .item
+      position: relative
+      height 50px;
+      line-height 50px;
+      font-size $font-size-medium-15
+      padding-left: $font-size-medium-15
+      box-sizing content-box
+      border1pxBottom($color-background-line)
+      .iconRightArrow
+        position absolute
+        right $font-size-medium-15
+        top: 18px;
+        width 15px
+        height 26px
+        bg-image('icon_arrow')
+        background-size 60%
+        background-repeat no-repeat
+      .iconRightPhone
+        position absolute
+        right $font-size-medium-15
+        top: 18px;
+        width 15px
+        height 26px
+        bg-image('icon_call')
+        background-size 100%
+        background-repeat no-repeat
+      .number{
+        position absolute
+        font-size $font-size-medium-15
+        right:38px
+      }
