@@ -35,6 +35,9 @@ module.exports = {
     'no-unused-vars': 0,
     'no-trailing-spaces': 0,
     'eqeqeq': 0,
-    'yoda': 0
+    'yoda': 0,
+    'quotes': 0,
+    'comma-spacing': 0,
+    'no-irregular-whitespace': 0
   }
 }
