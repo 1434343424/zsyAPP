@@ -1,6 +1,6 @@
 <template>
   <div class="help">
-    <z-header>帮助中心</z-header>
+    <z-header backType='backApp'>帮助中心</z-header>
     <div class="content">
       <div class="item">
         <div class="item-title" @click="qsClick(1)">提款不成怎么办?<span class="iconRightArrow"></span></div>

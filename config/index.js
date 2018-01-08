@@ -35,7 +35,8 @@ module.exports = {
           // target: 'http://192.168.18.177:8030', // 子涵
           // target:'http://121.199.33.100:8030',// 线上
           // target:'http://192.168.20.12:8080',// 石智颖本地
-          target: 'http://pay.zsbigdata.com.cn:8001/zcash',
+          target:'http://192.168.20.14:8080',// 松林本地
+          // target: 'http://pay.zsbigdata.com.cn:8001/zcash',
           changeOrigin: true,
           pathRewrite: {
               '^/zsy': ''

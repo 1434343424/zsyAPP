@@ -1,6 +1,6 @@
 <template>
   <div class="bankAgreement">
-    <z-header>移动支付收单服务协议</z-header>
+    <z-header backType='backApp'>移动支付收单服务协议</z-header>
     <div class="textWrapper">
       <div class="text">
         <p class="head">移动支付收单服务协议</p>

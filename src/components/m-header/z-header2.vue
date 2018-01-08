@@ -10,11 +10,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'mint-ui'
 export default {
   props: {
     backType: {
       backType: String,
       default: 'back'
+    },
+    countUnread: {
+      countUnread: Number,
+      default: 0
     }
   },
   created() {
@@ -22,12 +27,16 @@ export default {
   },
   methods: {
     back() {
+      // Toast(this.backType)
       if (this.backType === 'back') {
         this.$router.goBack()
       } else {
+        // Toast(this.countUnread)
         let ua = navigator.userAgent.toLowerCase()
         if (/iphone|ipad|ipod/.test(ua)) {
+          // Toast('调用苹果返回接口')
           popToViewController()
+          getUnreadMessages(this.countUnread)
         } else if (/android/.test(ua)) {
           htmlToJava.popToViewController()
         }

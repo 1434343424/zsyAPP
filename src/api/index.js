@@ -20,7 +20,11 @@ export const login = (params) => {
 export const messageDetails = (params) => {
   return http.fetchPost(root + '/m/message/queryMessageInfoById.json', params)
 }
-// 主扫接口
+// 主扫接口（H5调用）
 export const createPayOrder = (params) => {
   return http.fetchPost(root + '/m/pay/createPayOrder.json', params)
+}
+// 付款时查询店铺门头照和名称（H5调用）
+export const queryPayLogo = (params) => {
+  return http.fetchPost(root + '/m/pay/queryPayLogo.json', params)
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="privacy">
-    <z-header>臻收银服务隐私政策条款</z-header>
+    <z-header backType='backApp'>臻收银服务隐私政策条款</z-header>
     <div class="textWrapper">
       <div class="text">
         <p class="fontBlack">&#x3000;&#x3000;本条款包含两部分：《臻收银服务隐私政策条款》和《个人信息采集授权声明》

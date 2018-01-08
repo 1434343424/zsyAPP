@@ -1,6 +1,6 @@
 <template>
   <div class="benefitAgreement">
-    <z-header>余利宝服务协议</z-header>
+    <z-header backType='backApp'>余利宝服务协议</z-header>
     <div class="textWrapper">
       <div class="text">
         <div class="content">

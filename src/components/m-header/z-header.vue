@@ -10,6 +10,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { Toast } from 'mint-ui'
 export default {
   props: {
     backType: {
@@ -22,11 +23,13 @@ export default {
   },
   methods: {
     back() {
+      // Toast(this.backType)
       if (this.backType === 'back') {
         this.$router.goBack()
       } else {
         let ua = navigator.userAgent.toLowerCase()
         if (/iphone|ipad|ipod/.test(ua)) {
+          // Toast('调用苹果返回接口')
           popToViewController()
         } else if (/android/.test(ua)) {
           htmlToJava.popToViewController()

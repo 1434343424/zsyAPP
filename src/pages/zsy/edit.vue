@@ -1,18 +1,20 @@
 <template>
   <div class="edit">
-    <z-header>编辑</z-header>
     <div class="wrapper">
-      <div class="shopImg"></div>
-      <div class="shop">豆蔻年华城西店</div>
+      <div class="shopImg"><img :src="doorFirstUrl"></div>
+      <div class="shop">{{doorName}}</div>
       <div class="orderMoney">订单金额(元)</div>
       <div class="money">
         <span class="moneyIcon">￥</span>
-        <input v-model="totalamount" @input="changePayButton" @keyup="moneyFormat(totalamount)" class="money-input" placeholder="请询问收银员后输入">
+        <input v-model="totalamount" type="number" @input="changePayButton" @keyup="moneyFormat(totalamount)" class="money-input" placeholder="请询问收银员后输入">
       </div>
       <div class="payButtonGray" v-show="payNoneShow" @click="payButtonClick()">确认付款</div>
       <div class="payButton" v-show="payCanShow" @click="payButtonClick()">确认付款</div>
-      <div>[1]{{result}}</div>
-      <div>[2]{{result2}}</div>
+      <div>[pramas:]{{pramas}}</div>
+      <div>[resCode:]{{resCode}}</div>
+      <div>[prePayId:]{{prePayId}}</div>
+      <div>[result]{{result}}</div>
+      <div>[payPramas]{{payPramas}}</div>
     </div>
   </div>
 </template>
@@ -20,9 +22,11 @@
 <script>
 import ZHeader from 'components/m-header/z-header'
 import { currency } from 'common/js/util'
-import { createPayOrder } from '../../api/index'
+import { createPayOrder, queryPayLogo } from '../../api/index'
 import { Toast } from 'mint-ui'
 import md5 from 'blueimp-md5'
+const _WX = 'WX'
+const _ALI = 'ALI'
 export default {
   components: {
     ZHeader
@@ -33,11 +37,16 @@ export default {
       payCanShow: false,
       totalamount: '',
       shopid: '',
-      channelType: '',
+      channelType: 'WX',
       codename: '',
       orderid: '',
       result: '',
       result2: '',
+      pramas: '',
+      resCode: '',
+      prePayId: '',
+      doorName: '',
+      doorFirstUrl: 'http://static.hpbanking.com/xg/uploads/files/7902fdeae8318f00321d227c0f9ccaf0-640-640.jpg',
       payPramas: {
         appId: '',
         timeStamp: '',
@@ -52,53 +61,99 @@ export default {
     this.shopid = this.$route.query.shopid;
     this.codename = this.$route.query.codename;
     this.openid = this.$route.query.openid;
+    this.codeid = this.$route.query.codeid;
     this.IsWeixinOrAlipay()
-    // let time = new Date().getTime()
-    // console.log(`time:${time}`)
-    // console.log(`time:${time + 'lqt'}`)
-    // console.log('abc'.toUpperCase())
+    this.queryPayLogo()
   },
   methods: {
+    queryPayLogo() {
+      let params = {
+        shopid: this.shopid
+      }
+      queryPayLogo(params).then(res => {
+        console.log(res)
+        if (res.code === 0) {
+          this.doorName = res.obj.shopname
+          this.doorFirstUrl = res.obj.doorFirstUrl
+        }
+      })
+    },
+    // onBridgeReady(payPramas) {
+    //   let weixinParams = {
+    //     "appId": payPramas.appId,// 公众号名称，由商户传入     
+    //     "timeStamp": payPramas.timeStamp,// 时间戳，自1970年以来的秒数     
+    //     "nonceStr": payPramas.nonceStr,// 随机串     
+    //     "package": payPramas.package,
+    //     "signType": payPramas.signType,// 微信签名方式：     
+    //     "paySign": payPramas.paySign// 微信签名 
+    //   }
+    //   console.log(weixinParams)
+    //   WeixinJSBridge.invoke('getBrandWCPayRequest', weixinParams, function(res) {
+    //     // Toast(res.err_msg)
+    //     WeixinJSBridge.log(res.err_msg)
+    //     if (res.err_msg == "get_brand_wcpay_request:ok") {
+    //       // Toast('支付成功!')
+    //       WeixinJSBridge.call('closeWindow');
+    //     } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+    //       // alert("用户取消支付!")
+    //       // Toast('取消支付!')
+    //       WeixinJSBridge.call('closeWindow');
+    //     } else {
+    //       // Toast('支付失败!')
+    //       WeixinJSBridge.call('closeWindow');
+    //     }
+    //   })
+    // },
     payButtonClick() {
+      let self = this
       let params = {
         totalamount: this.totalamount,
         shopid: this.shopid,
-        channelType: this.channelType,
+        channelType: this.channelType ? this.channelType : 'WX',// 这个判断纯属是为了方便在电脑中调试
         codename: this.codename,
-        //          orderid: this.orderid,
-        openid: this.openid
+        openid: this.openid,
+        codeid: this.codeid
       }
+      this.pramas = params
       createPayOrder(params).then(res => {
-        this.result2 = params
+        self.resCode = res.code
+        self.result = res.obj
         if (res.code === 0) {
-          // payPramas: {
-          //   appId: '',
-          //   timeStamp: '',
-          //   nonceStr: '',
-          //   package: '',
-          //   signType: 'MD5',
-          //   paySign: ''
-          // }
-          this.result = res.obj
-          this.payPramas.appId = 'wxdd8259dbcf817d01'
-          this.payPramas.timeStamp = new Date().getTime()
-          this.payPramas.nonceStr = md5(res.obj.orderid + new Date().getTime())
-          this.payPramas.package = res.obj.prePayId
-          this.payPramas.signType = 'MD5'
-          // 生成微信签名
-          let stringA = `appId=${this.payPramas.appId}&timeStamp=${this.payPramas.timeStamp}&nonceStr=${this.payPramas.nonceStr}&package=${this.payPramas.package}`
-          let stringSignTemp = `stringA&key=${res.obj.key}`
-          this.payPramas.paySign = md5(stringSignTemp).toUpperCase()
-
-          if (typeof WeixinJSBridge === "undefined") {
-            if (document.addEventListener) {
-              document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(), false);
-            } else if (document.attachEvent) {
-              document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady());
-              document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady());
+          // 微信签名算法
+          // let stringA = `appId=${self.payPramas.appId}&timeStamp=${self.payPramas.timeStamp}&nonceStr=${self.payPramas.nonceStr}&package=${self.payPramas.package}&signType=${self.payPramas.signType}&paySign=${self.payPramas.paySign}`
+          self.prePayId = res.obj.prePayId
+          if (self.channelType === _WX) {
+            self.payPramas = JSON.parse(res.obj.payInfo)
+            self.payPramas.appId = res.obj.subappid
+            let weixinParams = {
+              "appId": self.payPramas.appId,// 公众号名称，由商户传入      
+              "nonceStr": self.payPramas.nonceStr,// 随机串     
+              "package": self.payPramas.package,    
+              "paySign": self.payPramas.paySign,// 微信签名 
+              "signType": self.payPramas.signType,// 微信签名方式： 
+              "timeStamp": self.payPramas.timeStamp// 时间戳，自1970年以来的秒数    
             }
-          } else {
-            this.onBridgeReady()
+            WeixinJSBridge.invoke('getBrandWCPayRequest', weixinParams, function(res) {
+              Toast(res.err_msg)
+              WeixinJSBridge.log(res.err_msg)
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                Toast('支付成功!')
+              } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                Toast('取消支付!')
+              } else {
+                Toast('支付失败!')
+                // WeixinJSBridge.call('closeWindow');
+              }
+            })
+          } else if (self.channelType === _ALI) {
+            self.ready(function() {
+              AlipayJSBridge.call("tradePay", {
+                tradeNO: self.prePayId
+              }, function(result) {
+                // alert(JSON.stringify(result));
+                AlipayJSBridge.call('popWindow');
+              });
+            });
           }
         }
       })
@@ -106,9 +161,9 @@ export default {
     IsWeixinOrAlipay() {
       var userAgent = navigator.userAgent.toLowerCase();
       if (userAgent.indexOf('alipayclient') > -1) {
-        this.channelType = 'ALI'
+        this.channelType = _ALI
       } else if (userAgent.indexOf('micromessenger') > -1) {
-        this.channelType = 'WX'
+        this.channelType = _WX
       } else {
       }
     },
@@ -124,30 +179,14 @@ export default {
     moneyFormat(value) {
       this.totalamount = currency(value)
     },
-    onBridgeReady() {
-      let self = this
-      WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', {
-          "appId": this.payPramas.appId,// 公众号名称，由商户传入
-          "timeStamp": this.payPramas.timeStamp,// 时间戳，自1970年以来的秒数
-          "nonceStr": this.payPramas.nonceStr,// 随机串
-          "package": this.payPramas.package,
-          "signType": this.payPramas.signType,// 微信签名方式
-          "paySign": this.payPramas.paySign// 微信签名
-          // "appId": "wx2421b1c4370ec43b",// 公众号名称，由商户传入
-          // "timeStamp": "1395712654",// 时间戳，自1970年以来的秒数
-          // "nonceStr": "e61463f8efa94090b1f366cccfbbb444",// 随机串
-          // "package": "prepay_id=u802345jgfjsdfgsdg888",
-          // "signType": "MD5",// 微信签名方式
-          // "paySign": "70EA570631E4BB79628FBCA90534C63FF7FADD89"// 微信签名
-        },
-        function(res) {
-          alert(res)
-          // if (res.err_msg == "get_brand_wcpay_request:ok" ) {
-          //   // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-          // }
-        }
-      )
+    ready(callback) {
+      // 如果jsbridge已经注入则直接调用
+      if (window.AlipayJSBridge) {
+        callback && callback();
+      } else {
+        // 如果没有注入则监听注入的事件
+        document.addEventListener('AlipayJSBridgeReady', callback, false);
+      }
     }
   }
 }

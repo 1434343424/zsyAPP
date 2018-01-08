@@ -160,15 +160,5 @@ export default new Router({
         }
       ]
     }
-    // {
-    //   path: '/recommend',
-    //   component: Recommend,
-    //   children: [
-    //     {
-    //       path: ':id',
-    //       component: Disc
-    //     }
-    //   ]
-    // },
   ]
 })

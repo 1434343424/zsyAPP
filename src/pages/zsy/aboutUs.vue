@@ -1,6 +1,6 @@
 <template>
 <div class="about">
-  <z-header>关于我们</z-header>
+  <z-header backType='backApp'>关于我们</z-header>
   <div class="main">
     <div class="item" @click="intoAbout"><label>关于我们</label><span class="iconRightArrow"></span></div>
     <div class="item" @click="intoHelp">帮助中心<span class="iconRightArrow"></span></div>
