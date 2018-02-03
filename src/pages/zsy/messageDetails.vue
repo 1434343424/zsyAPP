@@ -1,6 +1,6 @@
 <template>
   <div class="messageDetails">
-    <z-header>系统消息</z-header>
+    <z-header>消息详情</z-header>
     <div class="main">
       <div class="title">{{title}}</div>
       <div class="time">{{updated | time}}</div>

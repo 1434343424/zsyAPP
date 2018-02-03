@@ -32,6 +32,11 @@ const Help = (resolve) => {
     resolve(module)
   })
 }
+const HelpInHome = (resolve) => {
+  import('pages/zsy/helpInHome').then((module) => {
+    resolve(module)
+  })
+}
 const Details = (resolve) => {
   import('pages/zsy/details').then((module) => {
     resolve(module)
@@ -113,6 +118,10 @@ export default new Router({
         {
           path: '/help',
           component: Help
+        },
+        {
+          path: '/helpInHome',
+          component: HelpInHome
         },
         {
           path: '/details',

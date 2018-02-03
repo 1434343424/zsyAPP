@@ -4,12 +4,13 @@
     <div class="content">
       <div class="item" :class="[item.isRead===1?'changeColor':'']" @click="intoMessageDetails(item.mapId,item.isRead)" v-for="item in list">
         <span class="item-img" :class="[item.isRead===1?'img2':'img1']"></span>
-        <div class="item-bigDiv" ref="fontGray">
-          <div class="item-title">
-            <span>{{item.title}}</span>
+        <div class="item-bigDiv" ref="fontGray" id='contentMessage'>
+          <div class="item-title-line">
+            <span class="item-title">{{item.title}}</span>
             <span class="item-time">{{item.created | time}}</span>
           </div>
-          <span class="item-message">{{item.context}}</span>
+          <!-- <div class="item-message">{{item.context}}</div> -->
+          <span class="item-message">{{item.context | getLimiteText}}</span>
         </div>
       </div>
     </div>
@@ -20,6 +21,7 @@
 import ZHeader from 'components/m-header/z-header2'
 import { message, login } from '../../api/index'
 import { getDateTime } from '../../common/js/times'
+import { getLimiteText } from '../../common/js/util'
 import { Indicator, Toast } from 'mint-ui'
 
 export default {
@@ -29,11 +31,12 @@ export default {
   data() {
     return {
       list: [],
-      userid: this.$route.query.userid ? this.$route.query.userid : 23,
+      userid: this.$route.query.userid,
       // userid: this.$route.query.userid,
       beforeChangeShow: true,
       afterChangeShow: false,
-      countUnread: 0
+      countUnread: 0,
+      contentWidth: ''
     }
   },
   created() {
@@ -43,6 +46,9 @@ export default {
   filters: {
     time(t) {
       return getDateTime(t)
+    },
+    getLimiteText(v) {
+      return getLimiteText(v)
     }
   },
   methods: {
@@ -59,12 +65,22 @@ export default {
       message(params).then(res => {
         if (res.code === 0) {
           this.list = res.list
-          this.list.forEach(function(element) {
-            if (element.isRead === 0) {
-              self.countUnread = self.countUnread + 1
-            }
-          })
-          Toast('this.countUnread:' + this.countUnread)
+          console.log(`this.list:`)
+          console.log(this.list)
+          // Toast('this.countUnread:' + this.countUnread)
+          if (this.list.length === 0) {
+            Toast('无消息')
+          } else {
+            this.list.forEach(function(element) {
+              if (element.isRead === 0) {
+                self.countUnread = self.countUnread + 1
+              }
+            })
+          }
+          // 获取模块的宽度
+          // this.contentWidth = document.getElementById('contentMessage').clientWidth
+          // console.log(`contentWidth:`)
+          // console.log(contentWidth)
         } else {
           Toast('服务器出错：' + res.error)
         }

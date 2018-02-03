@@ -1,5 +1,5 @@
 import http from './public'
-let root = '/zsy'
+let root = '/zcash'
 // 用户进入页面后保存数据
 export const visit = (params) => {
   return http.fetchPost(root + '/m/filter/cheCredit/visit.json', params)
@@ -22,7 +22,7 @@ export const messageDetails = (params) => {
 }
 // 主扫接口（H5调用）
 export const createPayOrder = (params) => {
-  return http.fetchPost(root + '/m/pay/createPayOrder.json', params)
+  return http.fetchPostNewIndicator(root + '/m/pay/createPayOrder.json', params)
 }
 // 付款时查询店铺门头照和名称（H5调用）
 export const queryPayLogo = (params) => {

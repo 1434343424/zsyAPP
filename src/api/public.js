@@ -21,7 +21,23 @@ export default {
         Indicator.close()
         resolve(res.data)
       }).catch(error => {
-        Toast('请求超时，网速有点慢哦')
+        Toast('服务器出错了' + error)
+        Indicator.close()
+        reject(error)
+      })
+    })
+  },
+  fetchPostNewIndicator(url, data = {}) {
+    Indicator.open()
+    setTimeout(function() {
+      Indicator.close()
+    }, 2000)
+    return new Promise((resolve, reject) => {
+      axios.post(url, qs.stringify(data)).then(res => {
+        // Indicator.close()
+        resolve(res.data)
+      }).catch(error => {
+        Toast('服务器出错了' + error)
         Indicator.close()
         reject(error)
       })

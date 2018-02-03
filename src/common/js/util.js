@@ -1,3 +1,13 @@
+// 限制文本个数
+export function getLimiteText(value) {
+  let len = 23
+  if (value.length > len) {
+    return value.substr(0, len) + '···'
+  } else {
+    return value
+  }
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -24,6 +34,23 @@ export function debounce(func, delay) {
       func.apply(this, args)
     }, delay)
   }
+}
+export const currencyNew = (value) => {
+  let count = 0
+  for (let i = 0; i < value.length; i++) {
+    // ...
+    if (value[i] === '.') {
+      count = count + 1
+    }
+  }
+  console.log(count)
+  if (count > 1) {
+    return value.substr(0, value.indexOf('.') + 1)
+  }
+  if (value.split('.').length === 2 && value.split('.')[1].length > 2) {
+    return value.substr(0, value.indexOf('.') + 3)
+  }
+  return value
 }
 
 export const currency = (v) => {

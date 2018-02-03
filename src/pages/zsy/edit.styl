@@ -1,23 +1,30 @@
 @import "~common/stylus/variable"
 @import "~common/stylus/mixin"
+$imgPX = 70px
 .edit
   position: absolute
   left: 0
   right: 0
   top: 0
   bottom: 0
+  background-color white
   //overflow hidden
   .wrapper
     position: relative
     height 100%
     background-color white
     padding-top 50px
+    padding-left 12px
+    padding-right 12px
     .shopImg
       position relative
-      height 50px
-      width 50px
-      background-color #009c88
-      margin 0 auto
+      height $imgPX
+      width $imgPX
+      border-radius $imgPX
+      margin-left auto
+      margin-right auto
+      padding-left auto
+      padding-right auto
       overflow hidden
       img
         width 100px
@@ -31,26 +38,32 @@
       color rgb(50,50,50)
       text-align center
     .orderMoney
-      font-size $font-size-small
+      font-size 14px
       margin-top 40px
-      margin-left $font-size-medium-15
+      margin-left 4px
     .money
+      overflow hidden
       position: relative
       margin-top 25px
       border1pxBottomLine(rgb(230,230,230))
+      height 40px
+      line-height 40px
       .moneyIcon
+        width 10%
         color rgb(53,53,53)
-        font-size 39px
-        margin-left $font-size-medium-15
-      .money-input
-        font-size $font-size-large
+        font-size 32px
+        float left
+      .moneyInput
+        margin-left 2%
+        width 88%
+        line-height 50px
+        font-size 18px
         color rgb(50,50,50)
         outline 0
-        margin-left $font-size-large-20
-    .payButtonGray
-      width:90%
+        float left
+    .payButtonGray,.payButton
       height 44px
-      margin-top 160px
+      margin-top 40px
       margin-left auto
       margin-right auto
       background-color rgb(221,221,221)
@@ -59,14 +72,4 @@
       border-radius 5px
       color white
     .payButton
-      width:90%
-      height 44px
-      margin-top 160px
-      margin-left auto
-      margin-right auto
       background-color rgb(0,156,136)
-      text-align center
-      line-height 44px
-      border-radius 5px
-      color white
-

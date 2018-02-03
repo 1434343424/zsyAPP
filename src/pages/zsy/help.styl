@@ -1,23 +1,32 @@
 @import "~common/stylus/variable"
 @import "~common/stylus/mixin"
 .help
+  // position: absolute
+  // left: 0
+  // right: 0
+  // top: 0
+  // bottom: 0
+  background-color white
   .content
     width 100%
-    background-color $color-text-white
-    margin-top $font-size-small-s
+    height 100%
+    overflow hidden
     .item
+      height auto
+      position relative
+      padding-right 10px
       padding-left $font-size-medium-15
+      border1pxTopLine($color-background-line)
       .item-title
         height 50px
         position relative
-        color $color-text
+        color #646464
         font-size $font-size-medium-15
         font-weight 600
         line-height 50px
-        border1pxBottom($color-background-line)
         .iconRightArrow
           position absolute
-          right $font-size-medium-15
+          right 0px
           width 15px
           height 26px
           top 18px
@@ -25,8 +34,12 @@
           background-size 60%
           background-repeat no-repeat
       .item-content
-        padding-top 5px
-        font-size $font-size-medium-13
-        line-height 30px
-        span
-          border-bottom 1px solid #adadad
+        width 100%
+        overflow hidden
+        padding-bottom 12px
+        font-size 12px
+        line-height 22px
+        color #666666
+        text-align justify
+        // span
+        //   border-bottom 1px solid #adadad

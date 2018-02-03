@@ -39,6 +39,7 @@ export default {
           getUnreadMessages(this.countUnread)
         } else if (/android/.test(ua)) {
           htmlToJava.popToViewController()
+          htmlToJava.getUnreadMessages(this.countUnread)
         }
       }
     }
