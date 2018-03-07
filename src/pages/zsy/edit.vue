@@ -88,6 +88,10 @@ export default {
         Toast('输入金额不能等于0')
         return
       }
+      if (this.totalamount > 999999.99) {
+        Toast('最大只能输入999999.99')
+        return
+      }
       let params = {
         totalamount: this.totalamount,
         shopid: this.shopid,
@@ -141,6 +145,8 @@ export default {
               });
             });
           }
+        } else {
+          Toast(res.error)
         }
       })
     },

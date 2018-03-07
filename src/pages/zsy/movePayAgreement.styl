@@ -1,4 +1,6 @@
 @import "~common/stylus/variable"
+div
+  font-size 0
 .bankAgreement
   page()
   .textWrapper
@@ -14,14 +16,15 @@
       padding-top 62px
       padding-bottom 20px
       line-height 20px
-      font-size 13px
       letter-spacing 0.5px
       .head
         text-align center
-        font-size 16px
-        font-weight 1000
-      .fontBlack
-        font-weight 600
+        font-size $font-size-head
+        font-weight 900
+      .line
+        font-size $font-size-line
+      .common
+        font-size $font-size-commom
       .fontSz
         font-size 15px
       .content

@@ -2,7 +2,7 @@
   <div class="opinion">
     <z-header>意见反馈</z-header>
     <div class="content-wrapper">
-      <textarea class="content" maxlength="150" @input="countInput" v-model="count" placeholder="您的宝贵意见是我们前进的动力"></textarea>
+      <textarea class="content" maxlength="150" @input="countInput" v-model="contentText" placeholder="您的宝贵意见是我们前进的动力"></textarea>
       <div class="text-remain">剩余{{remain}}/150</div>
     </div>
     <div class="content-phone"><input maxlength="11" v-model='mobile' class="content-input" type="text" placeholder="请留下您的联系电话，以便我们联系您"></div>
@@ -19,6 +19,7 @@
 <script>
 import ZHeader from 'components/m-header/z-header'
 import { option } from '../../api/index'
+import { isEmojiCharacter, filteremoji } from '../../common/js/util'
 import { Toast } from 'mint-ui'
 const root = '/zsy'
 export default {
@@ -28,18 +29,19 @@ export default {
   data() {
     return {
       userid: this.$route.query.userid,
-      remain: 150,
-      count: '',
+      remain: 150,// 最多150个字
+      contentText: '',
       mobile: '',
       grayButtonShow: true,
-      greenButtonShow: false
+      greenButtonShow: false,
+      context: ''
     }
   },
   methods: {
     countInput() {
-      var textVal = this.count.length;
+      var textVal = this.contentText.length;
       this.remain = 150 - textVal;
-      if (this.count !== '') {
+      if (this.contentText !== '') {
         this.greenButtonShow = true
         this.grayButtonShow = false
       } else {
@@ -48,10 +50,15 @@ export default {
       }
     },
     submitButton() {
+      console.log('isEmojiCharacter:' + isEmojiCharacter(this.contentText))
+      if (isEmojiCharacter(this.contentText)) {
+        Toast('不能输入Emoji表情')
+        return
+      }
       let params = {
         userid: this.userid,
         mobile: this.mobile,
-        context: this.count
+        context: this.contentText
       }
       option(params).then(res => {
         console.log(res)

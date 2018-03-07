@@ -66,11 +66,11 @@
         </div>
       </div>
       <div class="item">
-        <div class="item-title" @click="qsClick(8)">臻收银的手续率多少？
+        <div class="item-title" @click="qsClick(8)">臻收银的手续费率多少？
           <span class="iconRightArrow"></span>
         </div>
         <div class="item-content" v-show="currentShow[7].contentShow">
-          <span>手续费0.38%。交易手续费将在商户结算款项中同步扣收。
+          <span>手续费率0.38%。交易手续费将在商户结算款项中同步扣收。
           </span><br>
         </div>
       </div>
@@ -79,7 +79,7 @@
           <span class="iconRightArrow"></span>
         </div>
         <div class="item-content" v-show="currentShow[8].contentShow">
-          <span>选择结算到银行卡，则为 T+1到账（汇总清算），通常在交易发生后的下一个工作日上午12点前到账。
+          <span>选择结算到银行卡，则为D+1到账（汇总清算），通常在交易发生后的下一个工作日上午12点前到账。
           </span><br>
         </div>
       </div>

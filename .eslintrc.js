@@ -38,6 +38,7 @@ module.exports = {
     'yoda': 0,
     'quotes': 0,
     'comma-spacing': 0,
-    'no-irregular-whitespace': 0
+    'no-irregular-whitespace': 0,
+    'operator-linebreak': 0
   }
 }

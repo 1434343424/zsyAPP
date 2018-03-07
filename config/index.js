@@ -28,7 +28,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/zsy': {
+      '/zcash': {
           // target:'http://192.168.18.170:8061',// 义良
           // target:'http://192.168.18.218:8061',// 张胜
           // target: 'http://192.168.18.220:8061',// 修庆
@@ -36,11 +36,12 @@ module.exports = {
           // target:'http://121.199.33.100:8030',// 线上
           // target:'http://192.168.20.12:8080',// 石智颖本地
           target:'http://192.168.20.175:8080',// 松林本地
-          // target:'http://pay.zsbigdata.com.cn/zcash/',// 松林本地
+          // target:'http://pay.zsbigdata.com.cn/zcash/',// 测试地址
+          // target:'http://pay.zhenshouyin.com/',// 正式地址
           // target: 'http://pay.zsbigdata.com.cn:8001/zcash',
           changeOrigin: true,
           pathRewrite: {
-              '^/zsy': ''
+              '^/zcash': ''
           }
       }
   },
